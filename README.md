@@ -13,7 +13,7 @@
 #### The Dark Mode
 ![Dark Mode](screenshots/dark_mode.png)
 
-[Download APK](https://github.com/1hanzla100/flutter-weather/releases)
+[Download APK](https://github.com/majorsigma/weather-app/blob/master/build/app/outputs/apk/release/app-arm64-v8a-release.apk)
 
 ## Getting Started
 
