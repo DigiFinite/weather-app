@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -17,8 +19,6 @@ class _LoadingState extends State<Loading> {
   SimpleLocationResult arguments;
 
   getData({lat, lon}) async {
-    
-
     String latitude = lat == null ? "6.27" : lat.toString();
     String longitude = lon == null ? "3.21" : lon.toString();
 
@@ -45,12 +45,29 @@ class _LoadingState extends State<Loading> {
       },
     );
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          LottieBuilder.asset("assets/loading.json"),
-        ],
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                WeatherIcons.wi_cloud_refresh,
+                size: 150,
+                color: Theme.of(context).accentColor,
+              ),
+              SizedBox(height: 16),
+              Text(
+                "Weather Info",
+                style: GoogleFonts.lato(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).accentColor
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
