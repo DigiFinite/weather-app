@@ -14,7 +14,7 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String apiKey = "19ce5a3c4a15ae4fc432b380d1590d0c";
+  String apiKey = "";
   SimpleLocationResult arguments;
 
   getData({lat, lon}) async {
@@ -59,10 +59,9 @@ class _LoadingState extends State<Loading> {
               Text(
                 "Weather Info",
                 style: GoogleFonts.lato(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w400,
-                  color: Theme.of(context).accentColor
-                ),
+                    fontSize: 36,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).accentColor),
               ),
             ],
           ),
