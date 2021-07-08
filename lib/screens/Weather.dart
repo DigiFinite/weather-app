@@ -1,4 +1,6 @@
+import 'package:Weather/models/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_location_picker/simple_location_picker_screen.dart';
 import 'package:simple_location_picker/simple_location_result.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -38,7 +40,7 @@ class _WeatherState extends State<Weather> {
             padding: EdgeInsets.all(0),
             child: ListView(
               children: [
-                buildWavyWidget(),
+                buildWavyWidget(context),
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: Row(
@@ -47,7 +49,7 @@ class _WeatherState extends State<Weather> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Color(0xFF729FCF),
+                          color: Theme.of(context).accentColor,
                         ),
                         padding: EdgeInsets.all(15),
                         child: Column(
@@ -62,7 +64,7 @@ class _WeatherState extends State<Weather> {
                                 padding: EdgeInsets.all(10.0),
                                 child: Icon(
                                   FontAwesome5Solid.eye,
-                                  color: Color(0xFF729FCF),
+                                  color: Theme.of(context).accentColor,
                                 ),
                               ),
                             ),
@@ -92,7 +94,7 @@ class _WeatherState extends State<Weather> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Color(0xFF729FCF),
+                          color: Theme.of(context).accentColor,
                         ),
                         padding: EdgeInsets.all(15),
                         child: Column(
@@ -107,7 +109,7 @@ class _WeatherState extends State<Weather> {
                                 padding: EdgeInsets.all(10.0),
                                 child: Icon(
                                   Ionicons.ios_water,
-                                  color: Color(0xFF729FCF),
+                                  color: Theme.of(context).accentColor,
                                 ),
                               ),
                             ),
@@ -137,7 +139,7 @@ class _WeatherState extends State<Weather> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Color(0xFF729FCF),
+                          color: Theme.of(context).accentColor,
                         ),
                         padding: EdgeInsets.all(15),
                         child: Column(
@@ -152,7 +154,7 @@ class _WeatherState extends State<Weather> {
                                 padding: EdgeInsets.all(10.0),
                                 child: Icon(
                                   FontAwesome5Solid.wind,
-                                  color: Color(0xFF729FCF),
+                                  color: Theme.of(context).accentColor,
                                 ),
                               ),
                             ),
@@ -191,28 +193,31 @@ class _WeatherState extends State<Weather> {
         child: Padding(padding: const EdgeInsets.all(25)),
         shape: CircularNotchedRectangle(),
         notchMargin: 10,
-        color: Color(0xFF729FCF),
+        color: Theme.of(context).accentColor,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showLocationPicker();
         },
+        tooltip: "Select a Location",
         child: Icon(
           Icons.location_on_rounded,
+          color: Colors.white,
+          size: 32,
         ),
-        backgroundColor: Color(0xFF729FCF),
+        backgroundColor: Theme.of(context).accentColor,
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 
-  ClipPath buildWavyWidget() {
+  ClipPath buildWavyWidget(BuildContext context) {
     return ClipPath(
       clipper: WaveClipperTwo(),
       child: Container(
         padding: EdgeInsets.all(20),
-        color: Color(0xFF729FCF),
+        color: Theme.of(context).accentColor,
         child: Column(
           children: [
             Container(
@@ -244,11 +249,15 @@ class _WeatherState extends State<Weather> {
                   ),
                   IconButton(
                     icon: Icon(
-                      FontAwesome5.moon,
+                      Provider.of<AppSettingsChangeNotifier>(context, listen: false).themeMode == AppThemeMode.Dark ? FontAwesome5.lightbulb : FontAwesome5.moon ,
                       size: 32,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<AppSettingsChangeNotifier>(context, listen: false)
+                          .toggleTheme();
+                    },
+                    tooltip: "Toggle Theme Mode",
                   )
                 ],
               ),
@@ -294,9 +303,9 @@ class _WeatherState extends State<Weather> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Feels like ${weather.feelsLike}°C",
+                    "Weather kon be like ${weather.feelsLike}°C",
                     style: GoogleFonts.lato(
-                      fontSize: 15,
+                      fontSize: 18,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
@@ -323,8 +332,8 @@ class _WeatherState extends State<Weather> {
           initialLongitude: longitude,
           appBarTitle: "Pick a location",
           zoomLevel: 16,
-          appBarColor: Color(0xFF729FCF),
-          markerColor: Color(0xFF729FCF),
+          appBarColor: Theme.of(context).accentColor,
+          markerColor: Color(0xFFEF2929),
         ),
       ),
     ).then(
